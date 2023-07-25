@@ -1,7 +1,10 @@
-import "./App.css";
-import Expense from "./components/Expense";
+import React, { useState } from "react";
 
-const expenses = [
+import "./App.css";
+import Expense from "./components/Expense/Expense";
+import NewExpenses from "./components/NewExpenses/NewExpenses";
+
+const INIT_DATA = [
   {
     id: "1",
     title: "Car insurance",
@@ -29,9 +32,17 @@ const expenses = [
 ];
 
 function App() {
+  const [expenses, setExpenses] = useState(INIT_DATA);
+  const getExpenseHandler = (newExpense) => {
+    setExpenses((prevState) => {
+      return [newExpense, ...prevState];
+    });
+  };
+
   return (
     <div className="App">
-      <Expense  date={expenses}/>
+      <NewExpenses onGet={getExpenseHandler} />
+      <Expense expensesDate={expenses} />
     </div>
   );
 }
