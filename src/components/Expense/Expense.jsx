@@ -9,72 +9,44 @@ function Expense({ expensesDate }) {
 
   const getSelectedYear = (selectedYear) => {
     SetFiltiredYear(selectedYear);
-   
   };
 
+  //  функция которая передается как пропс для получения данных с form
   const filteredExpenses = expensesDate.filter((expense) => {
     return expense.date.getFullYear().toString() === filtiredYear;
-  })
-  let expensContent = <p style={{color: 'red'}}> No expenses found</p>
-  if (filteredExpenses.lenght > 0){
-    expensContent = filteredExpenses.map((el) =>{
-      return  <ExpenseItem
-            key={Math.random()}
-            title={el.title}
+  });
+
+  let expensContent = <p style={{ color: "red" }}> No expenses found</p>;
+
+  if (filteredExpenses.lenght > 0) {
+    expensContent = filteredExpenses.map((el) => {
+      return (
+        <ExpenseItem
+          key={Math.random()}
+          title={el.title}
           amount={el.amount}
-            date={el.date}
-          />
-    })
+          date={el.date}
+        />
+      );
+    });
   }
-   if( filtiredYear ==="All") {
-    expensContent = filteredExpenses.map((el) =>{
-      return  <ExpenseItem
-            key={Math.random()}
-            title={el.title}
+  if (filtiredYear === "All") {
+    expensContent = filteredExpenses.map((el) => {
+      return (
+        <ExpenseItem
+          key={Math.random()}
+          title={el.title}
           amount={el.amount}
-            date={el.date}
-          />
-    })
-   }
- 
+          date={el.date}
+        />
+      );
+    });
+  }
+
   return (
     <Card className="expenses">
       <ExpensFiltir filtiredYear={filtiredYear} onSelected={getSelectedYear} />
-       {expensContent}
-
-
-{/* // {filteredExpenses.map((el) => { */}
-{/* //         return  <ExpenseItem */}
-{/* //             key={Math.random()}
-//             title={el.title}
-//           amount={el.amount}
-//             date={el.date}
-//           />
-        
-//       } */}
-      
-
-
-
-
-
-
-
-
-     {/* filteredExpenses.length ===0 ? <p style={{color:'red'}}>No espenses found</p> : filteredExpenses.map
-      return <ExpenseItem */}
-      {/* {filteredExpenses.map((el) => {
-        return (
-          <ExpenseItem
-            key={Math.random()}
-            title={el.title}
-            amount={el.amount}
-            date={el.date}
-          />
-        );
-      })} */}
-
-
+      {expensContent}
     </Card>
   );
 }
